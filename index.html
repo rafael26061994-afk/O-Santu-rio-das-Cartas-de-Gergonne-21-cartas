@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🃏 O Santuário das Cartas de Gergonne</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barra de Acessibilidade -->
+    <div class="accessibility-bar">
+        <button class="acc-btn" onclick="changeFontSize(1)" title="Aumentar Letra">A+</button>
+        <button class="acc-btn" onclick="changeFontSize(-1)" title="Diminuir Letra">A-</button>
+        <button class="acc-btn" onclick="toggleContrast()" title="Alternar Alto Contraste">🌓 Contraste</button>
+        <button class="acc-btn" onclick="readText()" title="Ouvir Texto">🔊 Ouvir</button>
+    </div>
+
+    <div id="main-container" class="container">
+        <!-- TELA 1: INÍCIO DO TRUQUE -->
+        <div id="screen-instructions" class="screen">
+            <img id="instructions-magician" src="rafael.png" alt="Matemático" class="magician-img">
+            <h1>🃏 Ilusionismo com Baralho Físico Completo ✨</h1>
+            <div class="content-text">
+                <p>Um baralho completo de 52 cartas foi misturado. Para o ritual, o crupiê cortou exatamente 21 cartas aleatórias na mesa. Siga os passos:</p>
+                <ol>
+                    <li>Na próxima tela, examine as 21 cartas e mentalize apenas <strong>UMA</strong> delas.</li>
+                    <li>Guarde o valor, o naipe e o nome dela firmemente em sua mente.</li>
+                    <li>Sua única tarefa é indicar em qual coluna vertical sua carta pousou a cada rodada.</li>
+                </ol>
+                <p class="highlight">O maço está pronto!</p>
+            </div>
+            <button onclick="showTableScreen()">Cortar e Distribuir 21 Cartas ⚡</button>
+        </div>
+
+        <!-- TELA 2: AS TRÊS RODADAS DE SELEÇÃO -->
+        <div id="screen-table" class="screen hidden">
+            <h2>🧠 Onde está sua carta física?</h2>
+            <p>Examine as colunas de cartas, encontre a sua e clique no botão correspondente abaixo.</p>
+            
+            <div class="step-indicator">Rodada: <span id="current-step">1</span> de 3</div>
+
+            <!-- Mesa de feltro com as colunas na vertical -->
+            <div class="poker-table">
+                <div class="column-group">
+                    <div id="col-0" class="symbol-column"></div>
+                    <button class="btn-select-col" onclick="chooseColumn(0)">Coluna 1 ⬆</button>
+                </div>
+                <div class="column-group">
+                    <div id="col-1" class="symbol-column"></div>
+                    <button class="btn-select-col" onclick="chooseColumn(1)">Coluna 2 ⬆</button>
+                </div>
+                <div class="column-group">
+                    <div id="col-2" class="symbol-column"></div>
+                    <button class="btn-select-col" onclick="chooseColumn(2)">Coluna 3 ⬆</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA 3: A REVELAÇÃO FINAL -->
+        <div id="screen-reveal" class="screen hidden">
+            <img id="reveal-magician" src="ronaldo.png" alt="Matemático" class="magician-img">
+            <h2>✨ Sua Carta foi Puxada do Maço! ✨</h2>
+            <p>O algoritmo físico convergiu perfeitamente. A carta guardada na sua mente foi:</p>
+            <div id="final-symbol" class="final-card-wrapper"></div>
+            <button onclick="resetGame()" style="margin-top: 30px;">Embaralhar Todo o Baralho 🔄</button>
+        </div>
+    </div>
+
+    <!-- Widget VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Plugin();
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
