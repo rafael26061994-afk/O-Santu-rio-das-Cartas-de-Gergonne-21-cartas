@@ -1,0 +1,240 @@
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, #072f11 0%, #041a0a 70%, #010803 100%);
+    color: #f1f1f1;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 75px 10px 20px 10px;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* BARRA DE ACESSIBILIDADE FIXADA EXCLUSIVAMENTE NO INÍCIO DA PÁGINA */
+.accessibility-bar { 
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    display: flex; 
+    gap: 8px; 
+    z-index: 1000; 
+}
+
+.acc-btn { 
+    background: rgba(255,255,255,0.08); 
+    padding: 8px 14px; 
+    font-size: 0.85rem; 
+    border-radius: 6px; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    color: #fff; 
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.acc-btn:hover { background: rgba(255, 255, 255, 0.2); }
+
+.container {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    border: 2px solid #15803d;
+    border-radius: 24px; padding: 35px 20px;
+    max-width: 1000px; width: 100%;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.magician-img {
+    width: 140px; height: auto; border-radius: 20px;
+    margin-bottom: 15px; border: 3px solid #22c55e;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    object-fit: cover;
+}
+
+.hidden { display: none !important; }
+
+h1, h2 { color: #22c55e; margin-bottom: 15px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); font-size: 2rem; }
+p { font-size: 1.05rem; line-height: 1.5; margin-bottom: 15px; color: #cbd5e1; }
+ol { text-align: left; max-width: 540px; margin: 0 auto 20px; color: #e2e8f0; padding-left: 20px; }
+ol li { margin-bottom: 8px; font-size: 0.95rem; }
+.highlight { font-weight: bold; color: #f43f5e; font-size: 1.2rem; }
+
+.step-indicator {
+    background: #14532d; color: #bbf7d0; padding: 6px 18px;
+    border-radius: 50px; display: inline-block;
+    font-weight: bold; margin-bottom: 25px;
+    border: 1px solid #22c55e;
+}
+
+/* Mesa de feltro */
+.poker-table {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; 
+    margin: 20px 0;
+}
+
+.column-group { display: flex; flex-direction: column; }
+
+.symbol-column {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px dashed rgba(34, 197, 94, 0.3);
+    border-radius: 20px; padding: 16px 10px;
+    display: flex; flex-direction: column; gap: 14px;
+    box-shadow: inset 0 8px 20px rgba(0,0,0,0.7);
+}
+
+/* 🃏 DESIGN PREMIUM DAS CARTAS (FORÇADO ESTRITAMENTE EM PÉ) 🃏 */
+.poker-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 40%, #e2e8f0 100%);
+    color: #0f172a;
+    border-radius: 12px;
+    border: 1.5px solid #0f172a;
+    
+    /* Regras cruciais para impedir que fiquem deitadas */
+    width: 100%;
+    max-width: 160px; /* Evita que a carta alargue desproporcionalmente no PC */
+    margin: 0 auto;
+    aspect-ratio: 2 / 3; /* Força matematicamente a proporção vertical (ex: 100px largura por 150px altura) */
+    
+    position: relative;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.3), 
+        0 2px 4px -1px rgba(0, 0, 0, 0.2),
+        inset 0 0 8px rgba(255, 255, 255, 0.8);
+    user-select: none;
+    transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* Linha interna clássica refinada */
+.poker-card::before {
+    content: ''; position: absolute;
+    top: 5px; left: 5px; right: 5px; bottom: 5px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 8px; pointer-events: none;
+}
+
+/* Cartas vermelhas (Copas/Ouros) */
+.poker-card.red-suit { 
+    color: #dc2626; 
+    background: linear-gradient(145deg, #ffffff 0%, #fff5f5 50%, #fecdd3 100%);
+}
+
+/* Cantos Numéricos Estilo Georgia */
+.card-corner-top, .card-corner-bottom {
+    font-family: 'Georgia', serif;
+    display: flex; flex-direction: column;
+    align-items: center; align-self: flex-start;
+    font-size: 1.25rem; font-weight: bold; line-height: 0.85;
+    z-index: 2;
+}
+.card-corner-top .corner-suit, .card-corner-bottom .corner-suit { font-size: 1rem; margin-top: 3px; }
+
+/* Naipe Central Sombreado */
+.card-center-suit {
+    position: absolute; top: 42%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem; 
+    z-index: 1;
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.12));
+}
+
+/* Nome Acessível Discreto */
+.card-discreet-name {
+    position: absolute; bottom: 25px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.58rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    color: #64748b; white-space: nowrap; 
+    opacity: 0.75;
+    z-index: 2;
+}
+.poker-card.red-suit .card-discreet-name { color: #be123c; opacity: 0.65; }
+
+.card-corner-bottom { align-self: flex-end; transform: rotate(180deg); }
+
+/* Efeito Hover Realista */
+.poker-card:hover {
+    transform: translateY(-8px) scale(1.04) rotate(0.5deg);
+    box-shadow: 
+        0 20px 25px -5px rgba(0, 0, 0, 0.6), 
+        0 10px 10px -5px rgba(0, 0, 0, 0.4),
+        inset 0 0 4px rgba(255,255,255,0.9);
+    z-index: 10;
+    border-color: #000000;
+    cursor: pointer;
+}
+
+/* Botões */
+button {
+    background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+    border: 1px solid #166534; color: white; padding: 14px 28px;
+    font-size: 1.05rem; font-weight: bold; border-radius: 50px;
+    cursor: pointer; margin-top: 10px; transition: 0.2s;
+    width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+button:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+.btn-select-col {
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid #334155;
+    padding: 14px 5px; font-size: 0.95rem; border-radius: 12px;
+    margin-top: 12px; width: 100%; color: #cbd5e1; font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+.btn-select-col:hover { background: #172554; border-color: #3b82f6; color: #fff; }
+
+/* Revelação Final Magnificada */
+.final-card-wrapper .poker-card {
+    width: 210px; max-width: 210px; height: auto;
+    aspect-ratio: 2 / 3;
+    margin: 25px auto; padding: 18px;
+    border: 2.5px solid #0f172a;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    animation: casinoFloat 3.5s ease-in-out infinite;
+}
+.final-card-wrapper .card-corner-top, .final-card-wrapper .card-corner-bottom { font-size: 2rem; }
+.final-card-wrapper .card-center-suit { font-size: 6.5rem; top: 40%; }
+.final-card-wrapper .card-discreet-name { font-size: 0.85rem; bottom: 35px; opacity: 0.9; }
+
+@keyframes casinoFloat {
+    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+    50% { transform: translateY(-15px) rotate(2deg); box-shadow: 0 35px 60px -10px rgba(0, 0, 0, 0.85), 0 0 40px rgba(34,197,94,0.4); }
+}
+
+/* RESPONSIVIDADE TELEMÓVEL */
+@media (max-width: 650px) {
+    body { padding-top: 75px; }
+    .accessibility-bar { left: 50%; right: auto; transform: translateX(-50%); top: 15px; width: max-content; }
+    
+    .poker-table {
+        grid-template-columns: 1fr; /* Modo rolagem vertical confortável */
+        gap: 25px;
+    }
+    
+    .poker-card {
+        max-width: 140px; /* Garante tamanho perfeito em ecrãs pequenos mantendo-se em pé */
+    }
+    
+    .card-center-suit { font-size: 2.8rem; }
+    .card-discreet-name { font-size: 0.55rem; bottom: 22px; }
+    
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.35rem; }
+}
+
+/* Alto Contraste */
+body.high-contrast { background: #fff; color: #000; }
+body.high-contrast .container { background: #fff; border: 3px solid #000; box-shadow: none; }
+body.high-contrast h1, body.high-contrast h2, body.high-contrast p, body.high-contrast ol { color: #000 !important; }
+body.high-contrast button { background: #000; color: #fff; border: 1px solid #fff; }
+body.high-contrast .poker-card { background: #fff; border: 3px solid #000; color: #000 !important; }
+body.high-contrast .card-discreet-name { color: #000; font-weight: bold; }
+body.high-contrast .acc-btn { background: #fff; color: #000; border: 1px solid #000; }
